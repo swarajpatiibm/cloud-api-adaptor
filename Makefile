@@ -92,7 +92,7 @@ test: ## Run tests.
 .PHONY: test-e2e
 test-e2e: ## Run end-to-end tests for single provider.
 ifneq ($(CLOUD_PROVIDER),)
-	yum -y install libvirt-devel
+	sudo apt-get install -y libvirt-devel
 	go test -v -tags=$(CLOUD_PROVIDER) -timeout $(TEST_E2E_TIMEOUT) -count=1 ./test/e2e
 else
 	$(error CLOUD_PROVIDER is not set)
