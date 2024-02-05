@@ -9,7 +9,7 @@ SHELL = bash -o pipefail
 
 ARCH        ?= $(subst x86_64,amd64,$(shell uname -m))
 # Default is dev build. To create release build set RELEASE_BUILD=true
-RELEASE_BUILD ?= false
+RELEASE_BUILD ?= true
 # CLOUD_PROVIDER is used for runtime -- which provider should be run against the binary/code.
 CLOUD_PROVIDER ?=
 GOOPTIONS   ?= GOOS=linux GOARCH=$(ARCH) CGO_ENABLED=0
