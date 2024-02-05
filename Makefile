@@ -9,7 +9,7 @@ SHELL = bash -o pipefail
 
 ARCH        ?= $(subst x86_64,amd64,$(shell uname -m))
 # Default is dev build. To create release build set RELEASE_BUILD=true
-RELEASE_BUILD ?= true
+RELEASE_BUILD ?= false
 # CLOUD_PROVIDER is used for runtime -- which provider should be run against the binary/code.
 CLOUD_PROVIDER ?=
 GOOPTIONS   ?= GOOS=linux GOARCH=$(ARCH) CGO_ENABLED=0
@@ -92,6 +92,7 @@ test: ## Run tests.
 .PHONY: test-e2e
 test-e2e: ## Run end-to-end tests for single provider.
 ifneq ($(CLOUD_PROVIDER),)
+	yum -y install libvirt-devel
 	go test -v -tags=$(CLOUD_PROVIDER) -timeout $(TEST_E2E_TIMEOUT) -count=1 ./test/e2e
 else
 	$(error CLOUD_PROVIDER is not set)
