@@ -281,12 +281,19 @@ func (p *CloudAPIAdaptor) Deploy(ctx context.Context, cfg *envconf.Config, props
 
 	log.Info("Installing peerpod-ctrl")
 	cmd = exec.Command("make", "-C", "peerpod-ctrl", "deploy")
+	fmt.Print("Reached 1 ... ")
 	// Run the deployment from the root src dir
 	cmd.Dir = p.rootSrcDir
+	fmt.Print("Reached 2 ... ")
 	// Set the KUBECONFIG env var
 	cmd.Env = append(os.Environ(), fmt.Sprintf("KUBECONFIG="+cfg.KubeconfigFile()))
+	fmt.Print("Reached 3 ... ")
+	fmt.Print(cmd)
 	stdoutStderr, err = cmd.CombinedOutput()
+	fmt.Print("Reached 4 ... ")
+	fmt.Print(stdoutStderr)
 	log.Tracef("%v, output: %s", cmd, stdoutStderr)
+	fmt.Print("Reached 5 ... ")
 	if err != nil {
 		return err
 	}
